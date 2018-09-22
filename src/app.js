@@ -6,6 +6,7 @@ const app = choo();
 app.use(countStore);
 app.route('/', mainView);
 app.mount('.app');
+
 function mappedOutput(result) {
   const items =
     result
@@ -41,7 +42,7 @@ function processResult(markdown, input) {
 
 function mainView(state, emit) {
   return html`
-    <div>
+    <div class="container">
       <input type="text" class="query" />
       <div><small>${state.items.length} bookmarks</small></div>
       <div><small>${state.selectedItems.length} selected bookmarks</small></div>
