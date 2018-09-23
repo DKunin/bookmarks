@@ -112,15 +112,18 @@ function helpView(state, emit) {
     <div class="container">
       ${topMenu(state, emit)}
       <h3>Help</h3>
-      <div>
+      <p>
         Simple app to view your bookmarks, saved in specific way. The app is still in alpha and the api is subject to change, use at your own risk.
-      </div>
-      <div>
+      </p>
+      <p>
         Make a dat archive with a single File bookmarks.md, where data is structured like this, a list with links, anything else is ignored:
-        <div> - [Deploying a Node.js App to DigitalOcean with SSL](https://code.lengstorf.com/deploy-nodejs-ssl-digitalocean/?utm_source=nodeweekly&utm_medium=email)
-        </div>
-      </div>
-      <div>Then open settings of this app, add archive adress, and now you can search in your bookmarks, enter the query, and tap away.</div>
+        <p> - [Deploying a Node.js App to DigitalOcean with SSL](https://code.lengstorf.com/deploy-nodejs-ssl-digitalocean/?utm_source=nodeweekly&utm_medium=email)
+        </p>
+      </p>
+      <p>Then open settings of this app, add archive adress, and now you can search in your bookmarks, enter the query, and tap away.</p>
+      <p>
+        You can also used <a href="https://github.com/DKunin/bin/blob/master/like-it-on-dat">this</a> cli app to use it with terminal or alfred.
+      </p>
     </div>
   `;
   function onSave(event) {
