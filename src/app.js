@@ -117,7 +117,8 @@ function helpView(state, emit) {
       </div>
       <div>
         Make a dat archive with a single File bookmarks.md, where data is structured like this, a list with links, anything else is ignored:
-        - [Deploying a Node.js App to DigitalOcean with SSL](https://code.lengstorf.com/deploy-nodejs-ssl-digitalocean/?utm_source=nodeweekly&utm_medium=email)
+        <div> - [Deploying a Node.js App to DigitalOcean with SSL](https://code.lengstorf.com/deploy-nodejs-ssl-digitalocean/?utm_source=nodeweekly&utm_medium=email)
+        </div>
       </div>
       <div>Then open settings of this app, add archive adress, and now you can search in your bookmarks, enter the query, and tap away.</div>
     </div>
