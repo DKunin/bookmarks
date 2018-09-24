@@ -3494,7 +3494,6 @@ function processResult(markdown, input) {
 }
 
 function topMenu(state, emit) {
-  console.log(state.route);
   return html`
     <div>
       <a class="${state.route === '/' ? 'current-route' : ''}" href="/">Bookmarks</a>
@@ -3509,7 +3508,7 @@ function mainView(state, emit) {
     <div class="container">
       ${topMenu(state, emit)}
       <h3>Bookmarks</h3>
-      <input type="text" class="query" />
+      <input type="text" class="query" value=${state.queryString}/>
       <div><small>${state.items.length} bookmarks</small></div>
       <div><small>${state.selectedItems.length} selected bookmarks</small></div>
       <ul>
@@ -3601,10 +3600,10 @@ function renderList(items) {
 async function countStore(state, emitter) {
   state.items = [];
   state.selectedItems = [];
+  state.queryString = '';
   state.settings = JSON.parse(localStorage.getItem('settings') || '{}');
 
   if (state.settings.bookmarksArchive) {
-    console.log(state.settings.bookmarksArchive);
     const arch = await new DatArchive(state.settings.bookmarksArchive);
     const file = await arch.readFile('bookmarks.md');
     state.items = processResult(file, null, true).items || [];
@@ -3617,14 +3616,18 @@ async function countStore(state, emitter) {
 
   const inputQuery = document.querySelector('.query');
   if (inputQuery) {
-    inputQuery.addEventListener('change', function(event) {
-      state.selectedItems = state.items.filter(singleEntry => {
-        return (
-          singleEntry.title.toLowerCase().includes(event.target.value) ||
-          singleEntry.subtitle.toLowerCase().includes(event.target.value)
-        );
-      });
-      emitter.emit('render');
+    inputQuery.addEventListener('keyup', function(event) {
+      const query = event.target.value.toLowerCase();
+      state.queryString = query;
+      if (query.length >= 3) {
+        state.selectedItems = state.items.filter(singleEntry => {
+          return (
+            singleEntry.title.toLowerCase().includes(query) ||
+            singleEntry.subtitle.toLowerCase().includes(query)
+          );
+        });
+        emitter.emit('render');
+      }
     });
   }
 
@@ -3632,7 +3635,6 @@ async function countStore(state, emitter) {
     settings.forEach(({ key, value }) => {
       state.settings[key] = value;
     });
-    console.log(state.settings);
     localStorage.setItem('settings', JSON.stringify(state.settings));
     emitter.emit('render');
   });
